@@ -7,7 +7,6 @@ import os
 
 CHUNK_SIZE = 1000
 
-@st.cache_data
 def load_data(vector_store_dir: str = "faiss_index"):
     load_dotenv()
     os.environ["OPENAI_API_TYPE"] = "azure"
