@@ -1,8 +1,11 @@
-streamlit
-langchain
+streamlit~=1.31.1
+langchain~=0.1.11
 langchain-community
 langchain-openai
 langchain-core
-python-dotenv
+python-dotenv~=1.0.1
 faiss-cpu
 transformers~=4.38.2
+openai~=1.13.3
+pypdf
+openai
