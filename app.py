@@ -16,7 +16,7 @@ def load_data(vector_store_dir: str = "faiss_index"):
 
     client = AzureOpenAIEmbeddings(
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-        api_key=os.environ["AZURE_OPENAI_KEY"],
+        api_key=st.secrets["AZURE_OPENAI_KEY"],
         api_version="2023-05-15"
     )
 

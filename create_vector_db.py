@@ -1,3 +1,4 @@
+import streamlit as st
 from langchain.vectorstores import FAISS
 from pypdf import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -17,7 +18,7 @@ def create_vector_db(pdf) -> FAISS:
 
     client = AzureOpenAIEmbeddings(
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-        api_key=os.environ["AZURE_OPENAI_KEY"],
+        api_key=st.secrets["AZURE_OPENAI_KEY"],
         api_version="2023-05-15"
     )
 
