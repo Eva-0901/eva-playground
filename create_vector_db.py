@@ -17,7 +17,7 @@ def create_vector_db(pdf) -> FAISS:
 
     client = AzureOpenAIEmbeddings(
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-        api_key="",
+        api_key=os.environ["AZURE_OPENAI_KEY"],
         api_version="2023-05-15"
     )
 
