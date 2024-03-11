@@ -21,7 +21,7 @@ def load_data(vector_store_dir: str = "faiss_index"):
         api_version="2023-05-15"
     )
 
-    db = FAISS.load_local(vector_store_dir, client)
+    db = FAISS.load_local(vector_store_dir, client, allow_dangerous_deserialization=True)
     llm = AzureChatOpenAI(model_name="gpt-35-turbo", temperature=0.5, api_key="8d1daadc333e42b18e26d861588cfd43")
 
     print("Loading data...")
@@ -31,6 +31,7 @@ def load_data(vector_store_dir: str = "faiss_index"):
                                                                 search_kwargs={"score_threshold": 0.7}))
     bot.return_source_documents = True
     return bot
+
 
 def chat(message, history):
     print(f"[message]{message}")
