@@ -1,11 +1,15 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import FAISS
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
+import requests as r
+from bs4 import BeautifulSoup
 import os
 
 CHUNK_SIZE = 1000
+
 
 def load_data(vector_store_dir: str = "faiss_index"):
     load_dotenv()
@@ -24,25 +28,24 @@ def load_data(vector_store_dir: str = "faiss_index"):
 
     print("Loading data...")
 
-    AMAZON_REVIEW_BOT = RetrievalQA.from_chain_type(llm,
-                                                    retriever=db.as_retriever(search_type="similarity_score_threshold",
-                                                                              search_kwargs={"score_threshold": 0.7}))
-    AMAZON_REVIEW_BOT.return_source_documents = True
-
-    return AMAZON_REVIEW_BOT
-
+    bot = RetrievalQA.from_chain_type(llm,
+                                      retriever=db.as_retriever(search_type="similarity_score_threshold",
+                                                                search_kwargs={"score_threshold": 0.7}))
+    bot.return_source_documents = True
+    return bot
 
 def chat(message, history):
     print(f"[message]{message}")
     print(f"[history]{history}")
 
-    AMAZON_REVIEW_BOT = load_data()
+    bot = load_data()
 
-    ans = AMAZON_REVIEW_BOT.invoke({"query": message})
+    ans = bot.invoke({"query": message})
+
     if ans["source_documents"]:
         return ans["result"]
     else:
-        return "I don't know."
+        return "I don't know, please check answer in sap help portal."
 
 
 if __name__ == "__main__":
@@ -73,4 +76,6 @@ if __name__ == "__main__":
             message1 = st.chat_message("user")
             message1.write(j)
             message2 = st.chat_message("assistant")
-            message2.write(i)
+            # if i == "I don't know, please check answer in sap help portal.":
+            #     components.html("https://www.google.com")
+            message2.write(i, unsafe_allow_html=True)
