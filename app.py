@@ -76,4 +76,4 @@ if __name__ == "__main__":
             message2 = st.chat_message("assistant")
             # if i == "I don't know, please check answer in sap help portal.":
             #     components.html("https://www.google.com")
-            message2.write(i, unsafe_allow_html=True)
+            message2.write(i)
