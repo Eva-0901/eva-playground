@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import FAISS
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
-import requests as r
-from bs4 import BeautifulSoup
 import os
 
 CHUNK_SIZE = 1000

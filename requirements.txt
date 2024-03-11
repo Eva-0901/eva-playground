@@ -9,6 +9,3 @@ transformers~=4.38.2
 openai~=1.13.3
 pypdf
 openai
-bs4
-requests
-pandas
